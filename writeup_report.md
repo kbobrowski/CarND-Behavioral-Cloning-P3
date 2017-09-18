@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 [image3]: ./pictures/recovery2.jpg "Recovery Image"
 [image4]: ./pictures/recovery3.jpg "Recovery Image"
 [image5]: ./pictures/hist1.png "Histogram"
-[image6]: ./examples/hist2.jpg "Histogram"
+[image6]: ./pictures/hist2.jpg "Histogram"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -45,9 +45,9 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 5x5 and 3x3 filter sizes and depths between 24 and 128 (model.py lines 87-106) 
+My model consists of a convolution neural network with 5x5 and 3x3 filter sizes and depths between 24 and 128 (model.py lines 89-108) 
 
-The model includes RELU layers to introduce nonlinearity and the data is normalized in the model using a Keras lambda layer (code line 88). 
+The model includes RELU layers to introduce nonlinearity and the data is normalized in the model using a Keras lambda layer (code line 90). 
 
 #### 2. Attempts to reduce overfitting in the model
 
@@ -55,9 +55,9 @@ Although overfitting was small, (training loss slightly smaller than validation 
 
 The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-####3. Model parameter tuning
+#### 3. Model parameter tuning
 
-The model used an adam optimizer, so initially the learning rate was not tuned manually (model.py line 106). For fine-tuning of the model (e.g. after introducing new data) learning rate was decreased to 0.0001.
+The model used an adam optimizer, so initially the learning rate was not tuned manually (model.py line 108). For fine-tuning of the model (e.g. after introducing new data) learning rate was decreased to 0.0001.
 
 #### 4. Appropriate training data
 
@@ -89,7 +89,7 @@ Moreover, it is quite robust to recover after manual interruption:
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 87-106) consisted of a convolution neural network with the following layers and layer sizes (0.5 dropout was applied to all the layers):
+The final model architecture (model.py lines 89-108) consisted of a convolution neural network with the following layers and layer sizes (0.5 dropout was applied to all the layers):
 
 1) 160x320x3 normalization layer
 2) 66x320x3 cropping layer
@@ -112,7 +112,9 @@ To capture good driving behavior, I first recorded two laps on track one using c
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
 
 ![recovery1][image2]
+
 ![recovery2][image3]
+
 ![recovery3][image4]
 
 Plotting histogram of the steering angle, it is clear that majority of the samples are straight driving, which may introduce bias:
