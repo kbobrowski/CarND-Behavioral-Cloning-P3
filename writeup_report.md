@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 [image3]: ./pictures/recovery2.jpg "Recovery Image"
 [image4]: ./pictures/recovery3.jpg "Recovery Image"
 [image5]: ./pictures/hist1.png "Histogram"
-[image6]: ./pictures/hist2.jpg "Histogram"
+[image6]: ./pictures/hist2.png "Histogram"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -109,7 +109,7 @@ To capture good driving behavior, I first recorded two laps on track one using c
 
 ![center][image1]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover if it diverges from the center. These images show what a recovery looks like starting from the side of the road:
 
 ![recovery1][image2]
 
