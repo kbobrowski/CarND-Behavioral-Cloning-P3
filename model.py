@@ -8,32 +8,45 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
 
-
+# standard driving, keeping close to the center of the lane
 data_dirs_normal = ['data2_track1/data_{}'.format(i) for i in range(1,16)]
+
+# recovery maneuvers (returning to the center of the lane)
 data_dirs_recovery = ['data_track1/data_recovery_{}'.format(i) for i in range(1,7)]
-#data_dirs_recovery.append('data_track1/data_additional')
-#data_dirs_recovery = []
+
+# use both datasets for training
 data_dirs = data_dirs_normal + data_dirs_recovery
+
+# read dataset
 lines = []
 for data_dir in data_dirs:
     with open(os.path.join(data_dir, 'driving_log.csv')) as csvfile:
         reader = csv.reader(csvfile)
         for line in reader:
             angle = float(line[3])
+
+            # eliminate bias towards straight driving
             if not abs(angle) < 0.05 or np.random.random() < 0.5:
                 lines.append(line)
                 lines[-1].append(data_dir)
 
+# split data into train and validation sets
 train_samples, validation_samples = train_test_split(lines, test_size=0.2)
 
-#plt.hist([float(line[3]) for line in lines])
-#plt.show()
+# plot histogram of steering angles to check if dataset contains
+# too many straight segments
+if False:
+    plt.hist([float(line[3]) for line in lines])
+    plt.xlabel("steering angle")
+    plt.ylabel("count")
+    plt.show()
+    sys.exit(0)
 
-
+# generator to preprocess the data
 def generator(samples, batch_size=256):
     num_samples = len(samples)
     while True:
-        shuffle(samples)
+        samples = shuffle(samples)
 
         for offset in range(0, num_samples, batch_size):
             batch_samples = samples[offset:offset + batch_size]
@@ -47,11 +60,17 @@ def generator(samples, batch_size=256):
                     filename = os.path.basename(batch_sample[i])
                     data_dir = batch_sample[-1]
                     image = cv2.imread(os.path.join(data_dir, 'IMG', filename))
+
+                    # use also data from left and right cameras by applying
+                    # correction factor
                     angle = float(batch_sample[3]) + correction*correction_factor
+
+                    # augmentation of data
                     flipped = np.random.randint(2)
                     if flipped:
                         image = np.fliplr(image)
                         angle = -angle
+
                     images.append(image)
                     measurements.append(angle)
 
@@ -60,12 +79,11 @@ def generator(samples, batch_size=256):
 
             yield shuffle(X_train, y_train)
 
-
-
 train_generator = generator(train_samples)
 validation_generator = generator(validation_samples)
 
-model_filename = 'model4_dropout.h5'
+
+model_filename = 'model.h5'
 
 if not os.path.exists(model_filename):
     model = Sequential()
@@ -98,4 +116,4 @@ model.fit_generator(train_generator,
                     nb_val_samples=3*len(validation_samples),
                     nb_epoch=5)
 
-model.save('model4_dropout2_curves.h5')
+model.save(model_filename)
