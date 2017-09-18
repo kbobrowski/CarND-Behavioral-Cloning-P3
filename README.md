@@ -4,7 +4,7 @@ Self-driving car using end-to-end deep learning - steering angle is controlled o
 
 # Implementation
 
-Convolutional neural network was implemented in Keras, and model was trained on about 45000 images. For more details see the [script](model.py) and the [report](writeup_report.md)
+Convolutional neural network was implemented in Keras, and model was trained on about 45000 images. For more details see the [script](model.py) and the [report](writeup_report.md).
 
 # Videos
 
