@@ -10,13 +10,12 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./pictures/center.jpg "Center driving"
+[image2]: ./pictures/recovery1.jpg "Recovery Image"
+[image3]: ./pictures/recovery2.jpg "Recovery Image"
+[image4]: ./pictures/recovery3.jpg "Recovery Image"
+[image5]: ./pictures/hist1.png "Histogram"
+[image6]: ./examples/hist2.jpg "Histogram"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -108,21 +107,21 @@ The final model architecture (model.py lines 87-106) consisted of a convolution 
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![center][pictures/center.jpg]
+![center][image1]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
 
-![recovery1][pictures/recovery1.jpg]
-![recovery2][pictures/recovery2.jpg]
-![recovery3][pictures/recovery3.jpg]
+![recovery1][image2]
+![recovery2][image3]
+![recovery3][image4]
 
 Plotting histogram of the steering angle, it is clear that majority of the samples are straight driving, which may introduce bias:
 
-![hist1][pictures/hist1.png]
+![hist1][image5]
 
 To decrease small steering angles, samples were filtered with a condition to exclude 50% of the steering angles below 0.05, which resulted in the following histogram:
 
-![hist2][pictures/hist2.png]
+![hist2][image6]
 
 To augment the data sat, flipping images and angles was introduced, as it produces valid sample. Flipping is done randomly within the generator.
 
